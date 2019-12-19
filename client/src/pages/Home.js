@@ -1,15 +1,20 @@
-import React from 'react'
-import BeersList from '../components/BeersList'
-import Search from '../components/Search'
+import React from 'react';
+import BeersList from '../components/BeersList';
+import SearchBar from '../components/SearchBar';
+import Filter from '../components/Filter';
 
-function Home({beers, searchByName}){
-    return(
-        <section>
-        <h1>HOME</h1>
-        <Search searchByName={searchByName}/>
-        <BeersList beers={beers} />
-        </section>
-    )
+function Home({beers, searchByName, filterBeersByStyle, beersByStyle}) {
+  return (
+    <section>
+      <h1>Looking for a great beer?</h1>
+      <SearchBar searchByName={searchByName} />
+      <Filter
+        filterBeersByStyle={filterBeersByStyle}
+        beersByStyle={beersByStyle}
+      />
+      <BeersList beers={beers} />
+    </section>
+  );
 }
 
-export default Home
+export default Home;
