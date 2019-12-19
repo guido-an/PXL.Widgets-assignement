@@ -1,33 +1,41 @@
 import React, {useState, useEffect}  from 'react';
 import './App.css';
 import axios from 'axios';
+import Home from './pages/Home'
 
 
-const baseUrl = "http://localhost:5000/"
 
 function App() {
   let [beers, setCurrentBeers] = useState([]);
+  let [fullBeersArray, setFullBeersArray] = useState([])
+  const baseUrl = "http://localhost:5000/"
+  
   useEffect(() => {
     axios.get(baseUrl)
       .then(res => {
-        
         setCurrentBeers((beers = res.data.data));
-        console.log(beers, "test")
+        setFullBeersArray((fullBeersArray = res.data.data));
       })
       .catch(err => {
-        
         console.log(err, "err")
       });
-   
   }, []);
 
+  const searchByName = e => {
+    let filteredBeers = fullBeersArray.filter(beer => {
+      return beer.name
+        .toUpperCase()
+        .includes(e.target.value.toUpperCase());
+    });
+    setCurrentBeers((beers = filteredBeers));
+  };
+
   return (
-    <div>
-      <h1>HOME</h1>
-      {beers.map((beer, index) => {
-        return <p>{beer.name}</p>
-      })}
-    </div>
+      <Home 
+      beers={beers} 
+      searchByName={searchByName}
+      />   
+    
   );
 }
 

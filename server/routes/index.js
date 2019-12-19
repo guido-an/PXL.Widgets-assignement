@@ -16,15 +16,19 @@ const cors = require('cors');
 //   })
 
 //   });
-router.get('/', (req, res) => {
+router.get('/', cors(), (req, res) => {
   axios
     .get(`http://api.brewerydb.com/v2/beers/?key=${process.env.API_KEY}`)
     .then(beers => {
       res.status(200).json(beers.data);
+      console.log(beers.data)
     })
     .catch(err => {
       res.send(err);
     });
 });
+
+
+
 
 module.exports = router;
