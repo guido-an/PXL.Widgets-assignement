@@ -4,7 +4,9 @@
   "description": "Client Side Programming Assessment",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "DEBUG=server:* nodemon app.js"
+    "start": "node app.js",
+    "dev": "DEBUG=server:* nodemon app.js",
+    "deploy": "rimraf build && cd ../client && npm run build && mv build ../server/ && cd .. && git subtree push --prefix server heroku master"
   },
   "author": "Guido Carucci",
   "license": "ISC",
@@ -13,6 +15,8 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "path": "^0.12.7",
+    "rimraf": "^3.0.0"
   }
 }
