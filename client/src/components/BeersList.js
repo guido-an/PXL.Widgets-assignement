@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './BeersList.css'
 
 function BeersList({beers}) {
 
@@ -7,13 +8,13 @@ function BeersList({beers}) {
   
     beers.map(beer => {
     return (
-      <div key={beer.id}>
+      <div className="beer-wrapper shadow" key={beer.id}>
         {beer.labels && <img src={beer.labels.medium} />}
-        <p>
+        <h2>
           <strong>{beer.name}</strong>
-        </p>
+        </h2>
         {beer.style && <p>{beer.style.name}</p>}
-        <Link to={`/${beer.id}`}>View beer</Link>
+        <Link to={`/${beer.id}`}>View details</Link>
       </div>
     );
   })

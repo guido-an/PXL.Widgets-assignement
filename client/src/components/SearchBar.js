@@ -1,10 +1,10 @@
 import React from 'react';
+import './SearchBar.css'
 
 function Search({searchByName}) {
   return (
     <div>
-      <label>Search by name</label>
-      <input onChange={searchByName} type="text" placeholder="Search by name" />
+      <input className="search-bar shadow" onChange={searchByName} type="text" placeholder="Search by name"/>
     </div>
   );
 }

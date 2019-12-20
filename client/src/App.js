@@ -3,6 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import axios from 'axios';
 import Home from './pages/Home';
 import BeerPage from './pages/BeerPage';
+import './App.css'
 
 
 class App extends Component {
@@ -101,12 +102,6 @@ class App extends Component {
           path="/:id"
           render={props => <BeerPage {...props} />}
         />
-        {/* <Home 
-    beers={this.state.beers} 
-    searchByName={this.searchByName} 
-    filterBeersByStyle={this.filterBeersByStyle} 
-    beersByStyle={this.state.beersByStyle}
-    /> */}
       </Switch>
     );
   }

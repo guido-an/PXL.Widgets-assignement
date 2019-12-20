@@ -5,13 +5,18 @@ import Filter from '../components/Filter';
 
 function Home({beers, searchByName, filterBeersByStyle, beersByStyle}) {
   return (
-    <section>
-      <h1>Looking for a great beer?</h1>
+    <section className="section-container shadow">
+    <div style={{textAlign: 'center'}}>
+      <h1 style={{color: "#222", fontSize: "29px"}}>Looking for your next beer?</h1>
+      <p style={{fontSize: "18px", position: "relative", bottom:"10px"}}>Start from here.</p>
+      </div>
+      <div>
       <SearchBar searchByName={searchByName} />
       <Filter
         filterBeersByStyle={filterBeersByStyle}
         beersByStyle={beersByStyle}
       />
+      </div>
       <BeersList beers={beers} />
     </section>
   );
