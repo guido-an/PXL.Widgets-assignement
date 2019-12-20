@@ -1,21 +1,27 @@
-.filter-wrapper{
-    margin-top: 20px;
-    margin-bottom: 80px;
-    text-align: center;
+.filter-wrapper {
+  margin-top: 20px;
+  margin-bottom: 80px;
+  text-align: center;
 }
 .filter-wrapper p {
-    position: relative;
-    top: 10px;
-    font-size: 14px
+  position: relative;
+  top: 10px;
+  font-size: 14px;
 }
-.filter-wrapper select{
-    width: 420px;
-    height: 40px;
-    display: block;
-    margin: 0 auto;
-    font-size: 14px;
-    border-radius: 4px;
-    border: 1px solid #fafafa;
-    background-color: #fff;
-    color: #777
+.filter-wrapper select {
+  width: 420px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #fafafa;
+  background-color: #fff;
+  color: #777;
+}
+@media (min-width: 768px) {
+  .filter-wrapper {
+    margin: 5px;
+    padding: 10px 0 40px;
+  }
 }

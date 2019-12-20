@@ -1,51 +1,50 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import './BeerPage.css'
 
 class BeerPage extends Component {
   state = {
     beer: null,
-  };
+  }
 
-  beerId = this.props.match.params.id;
+  beerId = this.props.match.params.id
 
   getBeer = () => {
     axios
       .get(`/${this.beerId}`)
       .then(beer => {
         this.setState({
-            beer: beer.data
+          beer: beer.data,
         })
       })
       .catch(err => {
-        console.log(err, 'err');
-      });
-  };
+        console.log(err, 'err')
+      })
+  }
 
-  componentDidMount(){
+  componentDidMount() {
     this.getBeer()
   }
   render() {
-      console.log(this.state.beer)
-      const beer = this.state.beer
+    const beer = this.state.beer
     return (
-      <div>
-          {beer ? (
-              <div>
-              {beer.labels && (<img src={beer.labels.large}/>)}
-            <h1>{beer.name}</h1>
-            <p>Alcol: {beer.abv}</p>
-            <p>{beer.description}</p>
-              </div>
-            
-          ) : (
-              <p>Beer coming...</p>
-          )}
+      <section className="beer-page section-container">
        
-      
-        
-      </div>
-    );
+        {beer ? (
+          <div className="beer-wrapper shadow">
+            {beer.labels && <img src={beer.labels.medium} alt={beer.name} />}
+            <h1>{beer.name}</h1>
+            {beer.abv && <span>Alcol: {beer.abv}</span>}
+            <p>{beer.description}</p>
+            <Link to="/">> View all beers</Link>
+          </div>
+        ) : (
+          <p style={{ textAlign: 'center' }}>Beer coming...</p>
+        )}
+      </section>
+    )
   }
 }
 
-export default BeerPage;
+export default BeerPage
