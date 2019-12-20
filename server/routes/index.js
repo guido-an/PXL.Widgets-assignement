@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
+const cors = require('cors')
 
-router.get('/', (req, res) => {
+router.get('/beers', cors(), (req, res) => {
   axios
     .get(`http://api.brewerydb.com/v2/beers/?key=${process.env.API_KEY}`)
     .then(beers => {
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/beers/:id', (req, res) => {
   axios
     .get(`http://api.brewerydb.com/v2/beer/${req.params.id}/?key=${process.env.API_KEY}`)
     .then(beers => {

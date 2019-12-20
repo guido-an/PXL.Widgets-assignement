@@ -12,7 +12,7 @@ class BeerPage extends Component {
 
   getBeer = () => {
     axios
-      .get(`/${this.beerId}`)
+      .get(`/beers/${this.beerId}`)
       .then(beer => {
         this.setState({
           beer: beer.data,

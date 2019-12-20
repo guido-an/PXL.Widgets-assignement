@@ -16,7 +16,7 @@ class App extends Component {
 
   getBeers = () => {
     axios
-      .get(process.env.REACT_APP_BASE_URL)
+      .get(`${process.env.REACT_APP_BASE_URL}beers`)
       .then(beers => {
         this.setState({
           beers: beers.data,
