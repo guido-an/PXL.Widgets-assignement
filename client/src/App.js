@@ -1,34 +1,110 @@
-import React, {useState, useEffect}  from 'react';
-import './App.css';
+import React, {Component} from 'react';
+import {Route, Switch} from 'react-router-dom';
 import axios from 'axios';
+import Home from './pages/Home';
+import BeerPage from './pages/BeerPage';
+import './App.css'
 
 
-const baseUrl = "http://localhost:5000/"
+class App extends Component {
+  state = {
+    beers: [],
+    fullBeersArray: [],
+    beersByStyle: [],
+    beersByAbv: [],
+  };
 
-function App() {
-  let [beers, setCurrentBeers] = useState([]);
-  useEffect(() => {
-    axios.get(baseUrl)
-      .then(res => {
-        
-        setCurrentBeers((beers = res.data.data));
-        console.log(beers, "test")
+  getBeers = () => {
+    axios
+      .get(process.env.REACT_APP_BASE_URL)
+      .then(beers => {
+        this.setState({
+          beers: beers.data,
+          fullBeersArray: beers.data,
+        });
+        this.getBeersByStyle();
       })
       .catch(err => {
-        
-        console.log(err, "err")
+        console.log(err, 'err');
       });
-   
-  }, []);
+  };
 
-  return (
-    <div>
-      <h1>HOME</h1>
-      {beers.map((beer, index) => {
-        return <p>{beer.name}</p>
-      })}
-    </div>
-  );
+  componentDidMount() {
+    this.getBeers();
+  }
+
+  searchByName = e => {
+    let filteredBeers = this.state.fullBeersArray.filter(beer => {
+      return beer.name.toUpperCase().includes(e.target.value.toUpperCase());
+    });
+    this.setState({
+      beers: filteredBeers,
+    });
+  };
+
+  getBeersByStyle = () => {
+    let styleArray = [];
+    this.state.fullBeersArray.forEach(beer => {
+      if (beer.style) {
+        if (!styleArray.includes(beer.style.name)) {
+          styleArray.push(beer.style.name);
+        }
+      } else {
+        return null;
+      }
+    });
+    // sort in alphabetically order
+    let sortedByStyleArray = styleArray.sort((a, b) => {
+      return a > b ? 1 : b > a ? -1 : 0;
+    });
+    this.setState({
+      beersByStyle: sortedByStyleArray,
+    });
+  };
+
+  filterBeersByStyle = e => {
+    if (e.target.value == '') {
+      this.setState({
+        beers: this.state.fullBeersArray,
+      });
+    } else {
+      let filteredStyle = this.state.fullBeersArray.filter(beer => {
+        if (beer.style) {
+          return beer.style.name == e.target.value;
+        } else {
+          return null;
+        }
+      });
+      this.setState({
+        beers: filteredStyle,
+      });
+    }
+  };
+
+  render() {
+    return (
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <Home
+              {...props}
+              beers={this.state.beers}
+              searchByName={this.searchByName}
+              filterBeersByStyle={this.filterBeersByStyle}
+              beersByStyle={this.state.beersByStyle}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/:id"
+          render={props => <BeerPage {...props} />}
+        />
+      </Switch>
+    );
+  }
 }
 
 export default App;
