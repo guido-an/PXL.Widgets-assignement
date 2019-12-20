@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
-const cors = require('cors')
-
-router.get('/beers', cors(), (req, res) => {
+ 
+router.get('/beers', (req, res) => {
   axios
     .get(`http://api.brewerydb.com/v2/beers/?key=${process.env.API_KEY}`)
     .then(beers => {
