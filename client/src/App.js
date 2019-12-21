@@ -10,19 +10,22 @@ class App extends Component {
   state = {
     beers: [],
     fullBeersArray: [],
-    beersByStyle: [],
-    beersByAbv: [],
+    beerStylesArray: [],
+    searchInput: '',
+    styleSelection: ''
   }
 
   getBeers = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}beers`)
       .then(beers => {
-        this.setState({
-          beers: beers.data,
-          fullBeersArray: beers.data,
-        })
-        this.getBeersByStyle()
+        this.setState(
+          {
+            beers: beers.data.beers,
+            fullBeersArray: beers.data.beers,
+            beerStylesArray: beers.data.beerStyles
+          }
+        )
       })
       .catch(err => {
         console.log(err, 'err')
@@ -39,26 +42,7 @@ class App extends Component {
     })
     this.setState({
       beers: filteredBeers,
-    })
-  }
-
-  getBeersByStyle = () => {
-    let styleArray = []
-    this.state.fullBeersArray.forEach(beer => {
-      if (beer.style) {
-        if (!styleArray.includes(beer.style.name)) {
-          styleArray.push(beer.style.name)
-        }
-      } else {
-        return null
-      }
-    })
-    // sort in alphabetically order
-    let sortedByStyleArray = styleArray.sort((a, b) => {
-      return a > b ? 1 : b > a ? -1 : 0
-    })
-    this.setState({
-      beersByStyle: sortedByStyleArray,
+      searchInput: e.target.value
     })
   }
 
@@ -68,15 +52,12 @@ class App extends Component {
         beers: this.state.fullBeersArray,
       })
     } else {
-      let filteredStyle = this.state.fullBeersArray.filter(beer => {
-        if (beer.style) {
-          return beer.style.name === e.target.value
-        } else {
-          return null
-        }
-      })
+      let filteredStyle = this.state.fullBeersArray.filter(
+        beer => beer.style && beer.style.name === e.target.value
+      )
       this.setState({
         beers: filteredStyle,
+        styleSelection: e.target.value
       })
     }
   }
@@ -93,8 +74,10 @@ class App extends Component {
                 {...props}
                 beers={this.state.beers}
                 searchByName={this.searchByName}
+                searchInput={this.state.searchInput}
+                styleSelection={this.state.styleSelection}
                 filterBeersByStyle={this.filterBeersByStyle}
-                beersByStyle={this.state.beersByStyle}
+                beersByStyle={this.state.beerStylesArray}
               />
             )}
           />

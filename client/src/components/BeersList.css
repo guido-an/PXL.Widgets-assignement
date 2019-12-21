@@ -1,15 +1,19 @@
 .beer-container {
   text-align: center;
   margin-bottom: 60px;
-  padding: 40px 0 120px;
+  padding: 40px 0 80px;
   position: relative
+}
+.beer-container:hover{
+  box-shadow: 0 6px 10px rgba(46, 41, 51, 0.08), 0 8px 14px rgba(71, 63, 79, 0.08);
 }
 .beer-container h2 {
   color: #222;
+  font-size: 18px
 }
 .beer-container p {
   position: relative;
-  bottom: 10px;
+  bottom: 5px;
 }
 .beer-container a {
   display: inline-block;
@@ -20,10 +24,6 @@
   border-radius: 4px;
   font-size: 14px;
   transition: all 0.2s;
-  position: absolute;
-  bottom: 15%;
-  left: 35%;
-
 }
 
 .beer-container a:hover {
@@ -39,10 +39,7 @@
   .beer-container {
     margin: 20px 5px;
     width: 350px;
-    padding: 20px 0 120px
+    padding: 20px 0 80px
   }
-  .beer-container a{
-    left: 30%;
-    bottom: 20%;
-  }
+
 }

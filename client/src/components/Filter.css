@@ -9,8 +9,8 @@
   font-size: 14px;
 }
 .filter-wrapper select {
-  width: 420px;
-  height: 40px;
+  width: 92%;
+  height: 50px;
   display: block;
   margin: 0 auto;
   font-size: 14px;
@@ -19,9 +19,17 @@
   background-color: #fff;
   color: #777;
 }
+
+.filter-wrapper select:hover{
+  box-shadow: 0 4px 6px rgba(46, 41, 51, 0.06), 0 4px 8px rgba(71, 63, 79, 0.04);
+}
+
 @media (min-width: 768px) {
   .filter-wrapper {
     margin: 5px;
     padding: 10px 0 40px;
+  }
+  .filter-wrapper select{
+    width: 52%
   }
 }
