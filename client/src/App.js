@@ -10,22 +10,20 @@ class App extends Component {
   state = {
     beers: [],
     fullBeersArray: [],
-    beerStylesArray: [],
+    beerStyles: [],
     searchInput: '',
-    styleSelection: ''
+    styleSelection: '',
   }
 
   getBeers = () => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}beers`)
       .then(beers => {
-        this.setState(
-          {
-            beers: beers.data.beers,
-            fullBeersArray: beers.data.beers,
-            beerStylesArray: beers.data.beerStyles
-          }
-        )
+        this.setState({
+          beers: beers.data.beers,
+          fullBeersArray: beers.data.beers,
+          beerStyles: beers.data.beerStyles,
+        })
       })
       .catch(err => {
         console.log(err, 'err')
@@ -37,29 +35,41 @@ class App extends Component {
   }
 
   searchByName = e => {
-    let filteredBeers = this.state.fullBeersArray.filter(beer => {
-      return beer.name.toUpperCase().includes(e.target.value.toUpperCase())
-    })
-    this.setState({
-      beers: filteredBeers,
-      searchInput: e.target.value
-    })
+    this.setState(
+      {
+        searchInput: e.target.value,
+      },
+      () => this.processSelection()
+    )
   }
 
   filterBeersByStyle = e => {
-    if (e.target.value === '') {
-      this.setState({
-        beers: this.state.fullBeersArray,
-      })
-    } else {
-      let filteredStyle = this.state.fullBeersArray.filter(
-        beer => beer.style && beer.style.name === e.target.value
-      )
-      this.setState({
-        beers: filteredStyle,
-        styleSelection: e.target.value
-      })
-    }
+    this.setState(
+      {
+        styleSelection: e.target.value,
+      },
+      () => this.processSelection()
+    )
+  }
+
+  processSelection() {
+    let beers = this.state.searchInput.trim()
+      ? this.state.fullBeersArray.filter(beer => {
+          return beer.name
+            .toUpperCase()
+            .includes(this.state.searchInput.toUpperCase())
+        })
+      : this.state.fullBeersArray
+
+    beers = this.state.styleSelection
+      ? beers.filter(beer => {
+          return beer.style && beer.style.name === this.state.styleSelection
+        })
+      : beers
+
+    this.setState({
+      beers,
+    })
   }
 
   render() {
@@ -73,11 +83,11 @@ class App extends Component {
               <Home
                 {...props}
                 beers={this.state.beers}
+                beerStyles={this.state.beerStyles}
+                filterBeersByStyle={this.filterBeersByStyle}
                 searchByName={this.searchByName}
                 searchInput={this.state.searchInput}
                 styleSelection={this.state.styleSelection}
-                filterBeersByStyle={this.filterBeersByStyle}
-                beersByStyle={this.state.beerStylesArray}
               />
             )}
           />

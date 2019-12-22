@@ -3,7 +3,14 @@ import BeersList from '../components/BeersList'
 import SearchBar from '../components/SearchBar'
 import Filter from '../components/Filter'
 
-function Home ({ beers, searchByName, filterBeersByStyle, beersByStyle, searchInput, styleSelection }) {
+function Home ({
+  beers,
+  beerStyles,
+  filterBeersByStyle,
+  searchByName,
+  searchInput,
+  styleSelection
+}) {
   return (
     <section className='section-container shadow'>
       <div style={{ textAlign: 'center' }}>
@@ -18,7 +25,7 @@ function Home ({ beers, searchByName, filterBeersByStyle, beersByStyle, searchIn
         <SearchBar searchByName={searchByName} searchInput={searchInput} />
         <Filter
           filterBeersByStyle={filterBeersByStyle}
-          beersByStyle={beersByStyle}
+          beerStyles={beerStyles}
           styleSelection={styleSelection}
         />
       </div>

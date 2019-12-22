@@ -8,7 +8,7 @@ let beersCache = { beers: [], beerStyles: [], timeStamp: null }
 router.get('/beers', (req, res) => {
   if (
     beersCache.beers.length === 0 ||
-    differenceInDays(new Date(), beersCache.beers.timeStamp >= 1)
+    differenceInDays(new Date(), beersCache.beers.timeStamp) >= 1
   ) {
     axios
       .get(`http://api.brewerydb.com/v2/beers/?key=${process.env.API_KEY}`)
@@ -27,7 +27,7 @@ router.get('/beers', (req, res) => {
 router.get('/beers/:id', (req, res) => {
   if (
     beersCache.beers.length === 0 ||
-    differenceInDays(new Date(), beersCache.beers.timeStamp >= 1)
+    differenceInDays(new Date(), beersCache.beers.timeStamp) >= 1
   ) {
     axios
       .get(

@@ -4,8 +4,7 @@ html{
   margin: 0
 }
 body{
-  position: relative;
-  min-height: 100vh;
+  position: relative
 }
 p {
   color: #777;
