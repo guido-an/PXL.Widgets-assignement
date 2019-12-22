@@ -18,7 +18,7 @@ REACT_APP_BASE_URL=http://localhost:5000/
 
 
 ## Server
-I created a minimal Node and Express server for caching the data from the api. The data are stored for one day in order to keep the application synchronized with the api if any change in data should occur. There are two endpoints: one for getting all the beers and one for getting the details of a beer. 
+I created a minimal Node and Express server for caching the data from the API. The data are stored for one day in order to keep the application synchronized with the API if any change in data should occur. There are two endpoints: one for getting all the beers and one for getting the details of a beer. 
 The <em>getBeerStyles</em> function send in an alphabetically order the types of beers available. I decided to write it here in order to keep in the frontend just what is really needed.
 
 ## Client
