@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './BeersList.css'
 
-function BeersList({ beers }) {
+function BeersList ({ beers }) {
   return (
     <section className='beers-section'>
       {beers.map(beer => {
