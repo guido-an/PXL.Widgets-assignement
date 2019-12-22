@@ -13,7 +13,7 @@ CLIENT_URL=http://localhost:3000/<br>
 PORT=5000<br>
 
 <strong>client</strong><br>
-.env.development]<br>
+.env.development<br>
 REACT_APP_BASE_URL=http://localhost:5000/
 
 
